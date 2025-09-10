@@ -51,10 +51,10 @@
 
 ## Challenge 7: Password Generator
 **Goal**: Work with random generation and string building <br>
-🔲 Create `/password/simple/{length}` - generates random letters/numbers <br>
-🔲 Add `/password/complex/{length}` - includes special characters <br>
-🔲 Create `/password/memorable/{words}` - generates passphrase with N words <br>
-🔲 Add `/password/strength/{password}` - rates password strength
+✅ Create `/password/simple/{length}` - generates random letters/numbers <br>
+✅ Add `/password/complex/{length}` - includes special characters <br>
+✅ Create `/password/memorable/{words}` - generates passphrase with N words <br>
+✅ Add `/password/strength/{password}` - rates password strength
 
 ## Challenge 8: Simple Validator
 **Goal**: Practice validation logic and boolean operations <br>
