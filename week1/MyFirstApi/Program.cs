@@ -49,12 +49,26 @@ app.MapNumbersEndpoints();
 app.MapDateTimeEndpoints();
 
 //Challenge 5: Simple Collections
+app.MapColorsEndpoints();
+
 //Challenge 6: Temperature Converter
+app.MapTemperatureEndpoints();
+
 //Challenge 7: Password Generator
+app.MapPasswordEndpoints();
+
 //Challenge 8: Simple Validator
+app.MapSimpleValidatorEndPoints();
+
+
 //Challenge 9: Unit Converter
+app.MapUnitConverterEndpoints();
+
 //Challenge 10: Weather History
+app.MapWeatherHistoryEndpoints();
+
 //Challenge 11: Simple Games
+app.MapSimpleGamesEndpoints();
 
 app.Run();
 /*
