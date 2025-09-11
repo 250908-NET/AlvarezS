@@ -4,7 +4,7 @@
 
 ✅ **Challenges 1-3**: Basic C# syntax, operations, and control flow <br>
 ✅ **Challenges 4-6**: Working with built-in types and classes <br>
-🔲 **Challenges 7-9**: String manipulation and data validation <br>
+✅ **Challenges 7-9**: String manipulation and data validation <br>
 🔲 **Challenge 10/11**: Combining concepts and adding simple state <br>
 
 ## Challenge 1: Basic Calculator
@@ -58,17 +58,17 @@
 
 ## Challenge 8: Simple Validator
 **Goal**: Practice validation logic and boolean operations <br>
-🔲 Create `/validate/email/{email}` - basic email format validation <br>
-🔲 Add `/validate/phone/{phone}` - validates phone number format <br>
-🔲 Create `/validate/creditcard/{number}` - Luhn algorithm validation <br>
-🔲 Add `/validate/strongpassword/{password}` - checks password rules
+✅ Create `/validate/email/{email}` - basic email format validation <br>
+✅ Add `/validate/phone/{phone}` - validates phone number format <br>
+✅ Create `/validate/creditcard/{number}` - Luhn algorithm validation <br>
+✅ Add `/validate/strongpassword/{password}` - checks password rules
 
 ## Challenge 9: Unit Converter
 **Goal**: Work with different measurement systems <br>
-🔲 Create `/convert/length/{value}/{fromUnit}/{toUnit}` (meters, feet, inches) <br>
-🔲 Add `/convert/weight/{value}/{fromUnit}/{toUnit}` (kg, lbs, ounces) <br>
-🔲 Create `/convert/volume/{value}/{fromUnit}/{toUnit}` (liters, gallons, cups) <br>
-🔲 Add `/convert/list-units/{type}` - returns available units for each type
+✅ Create `/convert/length/{value}/{fromUnit}/{toUnit}` (meters, feet, inches) <br>
+✅ Add `/convert/weight/{value}/{fromUnit}/{toUnit}` (kg, lbs, ounces) <br>
+✅ Create `/convert/volume/{value}/{fromUnit}/{toUnit}` (liters, gallons, cups) <br>
+✅ Add `/convert/list-units/{type}` - returns available units for each type
 
 ## Challenge 10: Weather History
 **Goal**: Add persistence and CRUD operations <br>
