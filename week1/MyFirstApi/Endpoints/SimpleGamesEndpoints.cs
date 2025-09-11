@@ -2,9 +2,9 @@ public static class SimpleGamesEndpoints
 {
     public static void MapSimpleGamesEndpoints(this IEndpointRouteBuilder app)
     {
-        app.MapGet("/game/guess-number", () =>
+        app.MapPost("/game/guess-number", () =>
         {
-
+            
         });
 
         app.MapGet("/game/rock-paper-scissors/{choice}", (string choice) =>

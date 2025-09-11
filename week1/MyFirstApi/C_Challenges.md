@@ -72,17 +72,17 @@
 
 ## Challenge 10: Weather History
 **Goal**: Add persistence and CRUD operations <br>
-🔲 Create a simple in-memory list to store weather forecasts <br>
-🔲 Add POST endpoint to save a weather forecast <br>
-🔲 Modify GET to return saved forecasts instead of random ones <br>
-🔲 Add DELETE endpoint to remove forecasts by date
+✅ Create a simple in-memory list to store weather forecasts <br>
+✅ Add POST endpoint to save a weather forecast <br>
+✅ Modify GET to return saved forecasts instead of random ones <br>
+✅ Add DELETE endpoint to remove forecasts by date
 
 ## Challenge 11: Simple Games
 **Goal**: Combine multiple concepts in mini-games <br>
 🔲 Create `/game/guess-number` (POST) - number guessing game with session <br>
-🔲 Add `/game/rock-paper-scissors/{choice}` - play against computer <br>
-🔲 Create `/game/dice/{sides}/{count}` - roll N dice with X sides <br>
-🔲 Add `/game/coin-flip/{count}` - flip coins and return results
+✅ Add `/game/rock-paper-scissors/{choice}` - play against computer <br>
+✅ Create `/game/dice/{sides}/{count}` - roll N dice with X sides <br>
+✅ Add `/game/coin-flip/{count}` - flip coins and return results
 
 ## Sample Implementation Pattern
 
