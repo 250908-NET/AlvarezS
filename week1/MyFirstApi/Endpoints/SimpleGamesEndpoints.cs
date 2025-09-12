@@ -1,11 +1,42 @@
 public static class SimpleGamesEndpoints
 {
+    public static List<GameSession> sessions = new List<GameSession>();
     public static void MapSimpleGamesEndpoints(this IEndpointRouteBuilder app)
     {
-        app.MapPost("/game/guess-number", () =>
+        app.MapPost("/game/start", () =>
+        {
+            var session = new GameSession();
+            sessions.Add(session);
+            return Results.Ok(new { session.sessionId, message = "Game started! Guess a number between 1 and 100." });
+        });
+
+        app.MapPost("/game/guess-number", (GameSession incomingSession) =>
         {
             
+            var existingSession = sessions.FirstOrDefault(s => s.sessionId == incomingSession.sessionId);
+
+            if (existingSession is null)
+            {
+                return Results.NotFound(new { message = "Session not found. Start a new game first." });
+            }
+
+            
+            if (incomingSession.guess == existingSession.answer)
+            {
+                sessions.Remove(existingSession);
+                return Results.Ok(new { message = $"🎉 Correct! Session {existingSession.sessionId} ended." });
+            }
+            else if (incomingSession.guess < existingSession.answer)
+            {
+                return Results.Ok(new { message = "Too low! Try again." });
+            }
+            else
+            {
+                return Results.Ok(new { message = "Too high! Try again." });
+            }
         });
+    
+
 
         app.MapGet("/game/rock-paper-scissors/{choice}", (string choice) =>
         {
@@ -24,9 +55,9 @@ public static class SimpleGamesEndpoints
                         return $"You Lose! {bot} beats {choice}";
                 case "paper":
                     if (bot == "rock")
-                    return $"You win! {choice} beats {bot}";
-                else
-                    return $"You Lose! {bot} beats {choice}";
+                        return $"You win! {choice} beats {bot}";
+                    else
+                        return $"You Lose! {bot} beats {choice}";
                 case "scissor":
                     if (bot == "paper")
                         return $"You win! {choice} beats {bot}";
