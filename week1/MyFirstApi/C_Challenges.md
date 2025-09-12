@@ -80,9 +80,9 @@
 ## Challenge 11: Simple Games
 **Goal**: Combine multiple concepts in mini-games <br>
 ✅ Create `/game/guess-number` (POST) - number guessing game with session <br>
-✅ Add `/game/rock-paper-scissors/{choice}` - play against computer <br>
-✅ Create `/game/dice/{sides}/{count}` - roll N dice with X sides <br>
-✅ Add `/game/coin-flip/{count}` - flip coins and return results
+✅ Add `/game/rock-paper-scissors/{choice}` (GET) - play against computer <br>
+✅ Create `/game/dice/{sides}/{count}` (GET) - roll N dice with X sides <br>
+✅ Add `/game/coin-flip/{count}` (GET) - flip coins and return results
 
 ## Sample Implementation Pattern
 

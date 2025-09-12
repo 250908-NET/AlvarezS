@@ -1,19 +1,18 @@
 public static class SimpleGamesEndpoints
 {
-    public static List<GameSession> sessions = new List<GameSession>();
+    public static List<Game> sessions = new List<Game>();
     public static void MapSimpleGamesEndpoints(this IEndpointRouteBuilder app)
     {
         app.MapPost("/game/start", () =>
         {
             var session = new GameSession();
-            sessions.Add(session);
+            sessions.Add(new Game(session.sessionId));
             return Results.Ok(new { session.sessionId, message = "Game started! Guess a number between 1 and 100." });
         });
 
-        app.MapPost("/game/guess-number", (GameSession incomingSession) =>
+        app.MapPost("/game/guess-number", (Game game) =>
         {
-            
-            var existingSession = sessions.FirstOrDefault(s => s.sessionId == incomingSession.sessionId);
+            var existingSession = sessions.FirstOrDefault(s => s.sessionId == game.sessionId);
 
             if (existingSession is null)
             {
@@ -21,12 +20,12 @@ public static class SimpleGamesEndpoints
             }
 
             
-            if (incomingSession.guess == existingSession.answer)
+            if (game.guess == existingSession.answer)
             {
                 sessions.Remove(existingSession);
                 return Results.Ok(new { message = $"🎉 Correct! Session {existingSession.sessionId} ended." });
             }
-            else if (incomingSession.guess < existingSession.answer)
+            else if (game.guess < existingSession.answer)
             {
                 return Results.Ok(new { message = "Too low! Try again." });
             }
