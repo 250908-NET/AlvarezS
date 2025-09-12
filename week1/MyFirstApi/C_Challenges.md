@@ -5,7 +5,7 @@
 ✅ **Challenges 1-3**: Basic C# syntax, operations, and control flow <br>
 ✅ **Challenges 4-6**: Working with built-in types and classes <br>
 ✅ **Challenges 7-9**: String manipulation and data validation <br>
-🔲 **Challenge 10/11**: Combining concepts and adding simple state <br>
+✅ **Challenge 10/11**: Combining concepts and adding simple state <br>
 
 ## Challenge 1: Basic Calculator
 **Goal**: Practice basic operations and parameter handling <br>
@@ -79,7 +79,7 @@
 
 ## Challenge 11: Simple Games
 **Goal**: Combine multiple concepts in mini-games <br>
-🔲 Create `/game/guess-number` (POST) - number guessing game with session <br>
+✅ Create `/game/guess-number` (POST) - number guessing game with session <br>
 ✅ Add `/game/rock-paper-scissors/{choice}` - play against computer <br>
 ✅ Create `/game/dice/{sides}/{count}` - roll N dice with X sides <br>
 ✅ Add `/game/coin-flip/{count}` - flip coins and return results
