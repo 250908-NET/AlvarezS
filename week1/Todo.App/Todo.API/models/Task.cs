@@ -25,11 +25,13 @@ public class Task
         updatedAt = DateTime.Now;
     }
 
-    public Task(string title, string? desc, Priority priority, string? dueDate)
+    public Task(int id, string title, string? desc, Priority priority, string? dueDate)
     {
+        this.id = id;
         this.title = title;
         this.desc = desc;
         this.priority = priority;
+        this.createdAt = DateTime.Now;
         this.dueDate = dueDate != null ? this.dueDate = DateTime.Parse(dueDate) : (DateTime?)null;
     }
 }

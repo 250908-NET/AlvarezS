@@ -9,6 +9,34 @@ public class TaskService
         id = 1;
     }
 
+    public List<Task>? getAllTasksByFilters(string? filter, string? dueBefore = null, Priority? priority = null)
+    {
+        IEnumerable<Task> filteredTasks = tasks;
+        if (!string.IsNullOrEmpty(filter)) return tasks;
+
+        switch (filter)
+        {
+            case "isCompleted":
+                filteredTasks = filteredTasks.Where(t => t.isCompleted);
+                break;
+
+            case "priority":
+                if (priority.HasValue)
+                    filteredTasks = filteredTasks.Where(t => t.priority == priority);
+                
+                break;
+
+            case "dueBefore":
+                if (!string.IsNullOrEmpty(dueBefore) && DateTime.TryParse(dueBefore, out var dueDate))
+                    filteredTasks = filteredTasks.Where(t => t.dueDate.HasValue && t.dueDate.Value < dueDate);
+                break;
+
+            default:
+                return null;
+        }
+        return filteredTasks.ToList();
+    }
+
     public Task? getTaskById(int id)
     {
         return tasks.FirstOrDefault(t => t.id == id);
@@ -16,7 +44,8 @@ public class TaskService
 
     public void addTask(string title, string? desc, Priority priority, string? dueDate)
     {
-        tasks.Add(new Task(title, desc, priority, dueDate));
+        tasks.Add(new Task(id, title, desc, priority, dueDate));
+        id++;
     }
 
     public Task? updateTaskById(int id, string? title = null, string? desc = null, bool? isCompleted = null, Priority? priority = null, string? dueDate = null)
