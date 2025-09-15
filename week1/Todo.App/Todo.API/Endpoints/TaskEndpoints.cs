@@ -1,27 +1,36 @@
 public static class TaskEndpoints
 {
+    public static TaskService taskService = new TaskService();
     public static void MapTaskEndpoints(this IEndpointRouteBuilder app)
     {
-        app.MapGet("/api/tasks", () =>
+        //Get all tasks with optional filtering
+        app.MapGet("/api/tasks", (string? filter) =>
         {
             
         });
 
-        app.MapGet("/api/tasks/{id}", (int id) => { 
+        //Get specific task by ID
+        app.MapGet("/api/tasks/{id}", (int id) =>
+        {
 
         });
 
-        app.MapPost("/api/tasks", () => { 
+        //Create new task
+        app.MapPost("/api/tasks", () =>
+        {
 
         });
 
-        app.MapPut("/api/tasks/{id}", (int id) => { 
+        //Update existing task
+        app.MapPut("/api/tasks/{id}", (int id) =>
+        {
 
         });
 
-        app.MapDelete("/api/tasks/{id}", (int id) => { 
+        //Delete task
+        app.MapDelete("/api/tasks/{id}", (int id) =>
+        {
 
         });
-
     }
 }
