@@ -1,18 +1,17 @@
 public class TaskService
 {
-    private static List<Task> tasks;
+    private static List<Task> tasks = new List<Task>();
     private static int id;
 
     public TaskService()
     {
-        tasks = new List<Task>();
         id = 1;
     }
 
-    public List<Task>? getAllTasksByFilters(string? filter, string? dueBefore = null, Priority? priority = null)
+    public List<Task>? getAllTasksByFilters(string? filter = null, string? dueBefore = null, Priority? priority = null)
     {
         IEnumerable<Task> filteredTasks = tasks;
-        if (!string.IsNullOrEmpty(filter)) return tasks;
+        if (string.IsNullOrEmpty(filter)) return tasks;
 
         switch (filter)
         {
@@ -42,10 +41,12 @@ public class TaskService
         return tasks.FirstOrDefault(t => t.id == id);
     }
 
-    public void addTask(string title, string? desc, Priority priority, string? dueDate)
+    public Task addTask(string title, Priority priority = Priority.LOW, string? desc = null, string? dueDate = null)
     {
-        tasks.Add(new Task(id, title, desc, priority, dueDate));
+        Task newTask = new Task(id, title, desc, priority, dueDate);
+        tasks.Add(newTask);
         id++;
+        return newTask;
     }
 
     public Task? updateTaskById(int id, string? title = null, string? desc = null, bool? isCompleted = null, Priority? priority = null, string? dueDate = null)
@@ -62,7 +63,6 @@ public class TaskService
             //if null, user is removing dueDate else, changing due date
             taskToUpdate.dueDate = dueDate == null ? null : DateTime.Parse(dueDate);
 
-            tasks[id] = taskToUpdate;
             return taskToUpdate;
         }
         return null;
@@ -71,6 +71,7 @@ public class TaskService
     public Task? removeTaskById(int id)
     {
         var taskToRemove = getTaskById(id);
+        if (taskToRemove != null) tasks.Remove(taskToRemove);
         return taskToRemove != null ? taskToRemove : null;
     }
 }

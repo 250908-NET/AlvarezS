@@ -1,10 +1,8 @@
 using System;
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 public class Task
 {
-    private string? desc;
-    private string? dueDate1;
-
     public int id { get; set; }
     [Required]
     [MaxLength(100)]
@@ -12,6 +10,7 @@ public class Task
     [MaxLength(500)]
     public string? description { get; set; }
     public bool isCompleted { get; set; }
+    [JsonConverter(typeof(JsonStringEnumConverter))]
     public Priority priority { get; set; }
     public DateTime? dueDate { get; set; }
     public DateTime createdAt { get; set; }
@@ -29,7 +28,7 @@ public class Task
     {
         this.id = id;
         this.title = title;
-        this.desc = desc;
+        this.description = desc;
         this.priority = priority;
         this.createdAt = DateTime.Now;
         this.dueDate = dueDate != null ? this.dueDate = DateTime.Parse(dueDate) : (DateTime?)null;
