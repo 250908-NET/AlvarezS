@@ -137,14 +137,14 @@ Choose one:
 ## Delivery Milestones
 
 ### Day 1: Foundation
-- [ ] Project setup and basic CRUD endpoints
-- [ ] Task model and in-memory storage
-- [ ] Basic validation
+- [X] Project setup and basic CRUD endpoints
+- [X] Task model and in-memory storage
+- [X] Basic validation
 
 ### Day 2: Enhancement
-- [ ] Error handling middleware
-- [ ] Filtering and search functionality
-- [ ] Swagger documentation
+- [X] Error handling middleware
+- [X] Filtering and search functionality
+- [X] Swagger documentation
 
 ### Day 3: Security
 - [ ] JWT authentication implementation
