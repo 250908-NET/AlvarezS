@@ -1,7 +1,7 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
-public class Task
+public class TaskItem
 {
     public int id { get; set; }
     [Required]
@@ -16,7 +16,7 @@ public class Task
     public DateTime createdAt { get; set; }
     public DateTime updatedAt { get; set; }
 
-    public Task()
+    public TaskItem()
     {
         id = 0; title = "";
         isCompleted = false;
@@ -24,7 +24,7 @@ public class Task
         updatedAt = DateTime.Now;
     }
 
-    public Task(int id, string title, string? desc, Priority priority, string? dueDate)
+    public TaskItem(int id, string title, string? desc, Priority priority, string? dueDate)
     {
         this.id = id;
         this.title = title;

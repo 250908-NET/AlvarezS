@@ -54,7 +54,7 @@ public static class TaskEndpoints
         });
 
         //Create new task
-        app.MapPost("/api/tasks", (Task body) =>
+        app.MapPost("/api/tasks", (TaskItem body) =>
         {           
             if (string.IsNullOrWhiteSpace(body.title))
             {
@@ -81,7 +81,7 @@ public static class TaskEndpoints
         });
 
         //Update existing task
-        app.MapPut("/api/tasks/{id}", (int id, Task body) =>
+        app.MapPut("/api/tasks/{id}", (int id, TaskItem body) =>
         {
             //get data from body
             //TODO: return OK or BR and error message

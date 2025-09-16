@@ -1,6 +1,6 @@
 public class TaskService
 {
-    private static List<Task> tasks = new List<Task>();
+    private static List<TaskItem> tasks = new List<TaskItem>();
     private static int id;
 
     public TaskService()
@@ -8,9 +8,9 @@ public class TaskService
         id = 1;
     }
 
-    public List<Task>? getAllTasksByFilters(string? filter = null, string? dueBefore = null, Priority? priority = null)
+    public List<TaskItem>? getAllTasksByFilters(string? filter = null, string? dueBefore = null, Priority? priority = null)
     {
-        IEnumerable<Task> filteredTasks = tasks;
+        IEnumerable<TaskItem> filteredTasks = tasks;
         if (string.IsNullOrEmpty(filter)) return tasks;
 
         switch (filter)
@@ -36,20 +36,20 @@ public class TaskService
         return filteredTasks.ToList();
     }
 
-    public Task? getTaskById(int id)
+    public TaskItem? getTaskById(int id)
     {
         return tasks.FirstOrDefault(t => t.id == id);
     }
 
-    public Task addTask(string title, Priority priority = Priority.LOW, string? desc = null, string? dueDate = null)
+    public TaskItem addTask(string title, Priority priority = Priority.LOW, string? desc = null, string? dueDate = null)
     {
-        Task newTask = new Task(id, title, desc, priority, dueDate);
+        TaskItem newTask = new TaskItem(id, title, desc, priority, dueDate);
         tasks.Add(newTask);
         id++;
         return newTask;
     }
 
-    public Task? updateTaskById(int id, string? title = null, string? desc = null, bool? isCompleted = null, Priority? priority = null, string? dueDate = null)
+    public TaskItem? updateTaskById(int id, string? title = null, string? desc = null, bool? isCompleted = null, Priority? priority = null, string? dueDate = null)
     {
         var taskToUpdate = getTaskById(id);
         if (taskToUpdate != null)
@@ -68,7 +68,7 @@ public class TaskService
         return null;
     }
 
-    public Task? removeTaskById(int id)
+    public TaskItem? removeTaskById(int id)
     {
         var taskToRemove = getTaskById(id);
         if (taskToRemove != null) tasks.Remove(taskToRemove);
