@@ -6,10 +6,10 @@ public static class TaskEndpoints
     public static void MapTaskEndpoints(this IEndpointRouteBuilder app)
     {
         //Get all tasks with optional filtering
-        app.MapGet("/api/tasks", (string? filter = null) =>
+        app.MapGet("/api/tasks", (string? filter, [FromQuery] string? dueBefore, [FromQuery] Priority? priority) =>
         {
             //TODO: Get filter attributes from body
-            var tasks = taskService.getAllTasksByFilters(filter);
+            var tasks = taskService.getAllTasksByFilters(filter, dueBefore, priority);
             if (tasks != null)
             {
                 return Results.Ok(new
