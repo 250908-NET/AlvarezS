@@ -11,7 +11,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-// app.MapTaskEndpoints();
+app.MapTaskEndpoints();
 
 app.MapGet("/", () => { return "Hello World!"; });
 
