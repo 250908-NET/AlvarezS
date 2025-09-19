@@ -60,7 +60,11 @@ public static class AuthenticationEndpoints
                 });
             }
         });
+        
+        app.MapGet("/debug-key", () => JWTService.GenerateToken("testuser"));
     }
+
+
 
     public static User? userExist(User findUser)
     {
@@ -69,4 +73,6 @@ public static class AuthenticationEndpoints
         if (user != null) return user;
         return null;
     }
+
+    
 }

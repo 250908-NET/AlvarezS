@@ -8,7 +8,7 @@ public static class TaskEndpoints
         //Get all tasks with optional filtering
         app.MapGet("/api/tasks", (HttpContext http, string? filter, [FromQuery] string? dueBefore, [FromQuery] Priority? priority) =>
         {
-            var username = http.User.Identity?.Name;
+            var username = http.User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
 
             List<TaskItem>? tasks = null; 
             if(!string.IsNullOrEmpty(username))
@@ -37,7 +37,7 @@ public static class TaskEndpoints
         //Get specific task by ID
         app.MapGet("/api/tasks/{id}", (HttpContext http, int id) =>
         {
-            var username = http.User.Identity?.Name;
+            var username = http.User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
 
             TaskItem? task = null;
             
@@ -66,7 +66,12 @@ public static class TaskEndpoints
         //Create new task
         app.MapPost("/api/tasks", (HttpContext http, TaskItem body) =>
         {           
-            var username = http.User.Identity?.Name;
+            var username = http.User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+
+            // foreach (var claim in http.User.Claims)
+            //     Console.WriteLine($"{claim.Type} = {claim.Value}");
+            
+
 
             if (string.IsNullOrWhiteSpace(body.title))
             {
@@ -101,7 +106,7 @@ public static class TaskEndpoints
         //Update existing task
         app.MapPut("/api/tasks/{id}", (HttpContext http, int id, TaskItem body) =>
         {
-            var username = http.User.Identity?.Name;
+            var username = http.User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
 
             TaskItem? updated = null;
             
@@ -138,7 +143,7 @@ public static class TaskEndpoints
         //Delete task
         app.MapDelete("/api/tasks/{id}", (HttpContext http, int id) =>
         {
-            var username = http.User.Identity?.Name;
+            var username = http.User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
             TaskItem? task = null;
             
             if(!string.IsNullOrEmpty(username))
