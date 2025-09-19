@@ -16,16 +16,21 @@ public class TaskItem
     public DateTime createdAt { get; set; }
     public DateTime updatedAt { get; set; }
 
+    public string username { get; set; }
+
+
     public TaskItem()
     {
         id = 0; title = "";
         isCompleted = false;
         createdAt = DateTime.Now;
         updatedAt = DateTime.Now;
+        username = "";
     }
 
-    public TaskItem(int id, string title, string? desc, Priority priority, string? dueDate)
+    public TaskItem(string username, int id, string title, string? desc, Priority priority, string? dueDate)
     {
+        this.username = username;
         this.id = id;
         this.title = title;
         this.description = desc;

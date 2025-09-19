@@ -6,15 +6,19 @@ public static class TaskEndpoints
     public static void MapTaskEndpoints(this IEndpointRouteBuilder app)
     {
         //Get all tasks with optional filtering
-        app.MapGet("/api/tasks", (string? filter, [FromQuery] string? dueBefore, [FromQuery] Priority? priority) =>
+        app.MapGet("/api/tasks", (HttpContext http, string? filter, [FromQuery] string? dueBefore, [FromQuery] Priority? priority) =>
         {
-            //TODO: Get filter attributes from body
-            var tasks = taskService.getAllTasksByFilters(filter, dueBefore, priority);
+            var username = http.User.Identity?.Name;
+
+            List<TaskItem>? tasks = null; 
+            if(!string.IsNullOrEmpty(username))
+                 tasks = taskService.getAllTasksByFilters(username, filter, dueBefore, priority);
             if (tasks != null)
             {
                 return Results.Ok(new
                 {
                     success = true,
+                    user = username,
                     filter = filter,
                     message = "Operation completed successfully",
                     data = tasks,
@@ -28,18 +32,24 @@ public static class TaskEndpoints
                 message = "Operation failed",
                 error = $"Unsupported filter. Try [isCompleted, priority, dueBefore]",
             });
-        });
+        }).RequireAuthorization();
 
         //Get specific task by ID
-        app.MapGet("/api/tasks/{id}", (int id) =>
+        app.MapGet("/api/tasks/{id}", (HttpContext http, int id) =>
         {
-            var task = taskService.getTaskById(id);
+            var username = http.User.Identity?.Name;
+
+            TaskItem? task = null;
+            
+            if(!string.IsNullOrEmpty(username))
+                task = taskService.getTaskById(username, id);
 
             if (task != null)
             {
                 return Results.Ok(new
                 {
                     success = true,
+                    user = username,
                     message = "Operation completed successfully",
                     data = task,
                 });
@@ -51,11 +61,13 @@ public static class TaskEndpoints
                 message = "Operation failed",
                 error = $"Id not found",
             });
-        });
+        }).RequireAuthorization();
 
         //Create new task
-        app.MapPost("/api/tasks", (TaskItem body) =>
+        app.MapPost("/api/tasks", (HttpContext http, TaskItem body) =>
         {           
+            var username = http.User.Identity?.Name;
+
             if (string.IsNullOrWhiteSpace(body.title))
             {
                 return Results.BadRequest(new
@@ -65,7 +77,12 @@ public static class TaskEndpoints
                 });
             }
 
-            var task = taskService.addTask(
+
+            TaskItem? task = null;
+            
+            if(!string.IsNullOrEmpty(username))
+                task = taskService.addTask(
+                username, 
                 body.title, 
                 body.priority, 
                 body.description, 
@@ -75,17 +92,23 @@ public static class TaskEndpoints
             return Results.Ok(new
             {
                 success = true,
+                user = username,
                 message = "Task created",
                 data = task
             });
-        });
+        }).RequireAuthorization();
 
         //Update existing task
-        app.MapPut("/api/tasks/{id}", (int id, TaskItem body) =>
+        app.MapPut("/api/tasks/{id}", (HttpContext http, int id, TaskItem body) =>
         {
-            //get data from body
-            //TODO: return OK or BR and error message
-            var updated = taskService.updateTaskById(
+            var username = http.User.Identity?.Name;
+
+            TaskItem? updated = null;
+            
+            if(!string.IsNullOrEmpty(username))
+                updated = taskService.updateTaskById
+            (
+                username,
                 id,
                 title: body.title,
                 desc: body.description,
@@ -106,20 +129,26 @@ public static class TaskEndpoints
             return Results.Ok(new 
             {
                 success = true, 
+                user = username,
                 message = "Task updated", 
                 data = updated 
             });
-        });
+        }).RequireAuthorization();
 
         //Delete task
-        app.MapDelete("/api/tasks/{id}", (int id) =>
+        app.MapDelete("/api/tasks/{id}", (HttpContext http, int id) =>
         {
-            var task = taskService.removeTaskById(id);
+            var username = http.User.Identity?.Name;
+            TaskItem? task = null;
+            
+            if(!string.IsNullOrEmpty(username))
+                task = taskService.removeTaskById(username, id);
             if (task != null)
             {
                 return Results.Ok(new
                 {
                     success = true,
+                    user = username,
                     message = "Operation completed successfully",
                     data = task,
                 });
@@ -131,6 +160,6 @@ public static class TaskEndpoints
                 message = "Operation failed",
                 error = $"Id not found",
             });
-        });
+        }).RequireAuthorization();
     }
 }
