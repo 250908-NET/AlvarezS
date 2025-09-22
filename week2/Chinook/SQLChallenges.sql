@@ -1,33 +1,60 @@
 -- SETUP:
     -- Create a database server (docker)
-        -- docker run -e "ACCEPT_EULA=Y" -e "MSSQL_SA_PASSWORD=<password>" -p 1433:1433 -d mcr.microsoft.com/mssql/server:2022-latest
+        -- docker run -e "ACCEPT_EULA=Y" -e "MSSQL_SA_PASSWORD=p@55w0rd" -p 1433:1433 -d mcr.microsoft.com/mssql/server:2022-latest
     -- Connect to the server (Azure Data Studio / Database extension)
     -- Test your connection with a simple query (like a select)
     -- Execute the Chinook database (to create Chinook resources in your db)
 
-    
 
 -- On the Chinook DB, practice writing queries with the following exercises
 
 -- BASIC CHALLENGES
 -- List all customers (full name, customer id, and country) who are not in the USA
+SELECT FirstName, LastName, CustomerId, Country 
+FROM Customer
+WHERE Country <> 'USA';
 
 -- List all customers from Brazil
+SELECT FirstName, LastName, CustomerId, Country  
+FROM Customer
+WHERE Country = 'Brazil';
     
 -- List all sales agents
+SELECT FirstName, LastName, EmployeeId
+FROM Employee;
 
 -- Retrieve a list of all countries in billing addresses on invoices
+SELECT DISTINCT BillingCountry FROM Invoice;
 
 -- Retrieve how many invoices there were in 2009, and what was the sales total for that year?
-
+SELECT COUNT(*) AS InvoiceCount, 
+       SUM(Total) AS SalesTotal 
+FROM Invoice 
+WHERE YEAR(InvoiceDate) = '2009';
     -- (challenge: find the invoice count sales total for every year using one query)
+    SELECT YEAR(InvoiceDate) AS InvoiceYear, 
+           COUNT(*) AS InvoiceCount, 
+           SUM(Total) AS SalesTotal 
+    FROM Invoice 
+    GROUP BY YEAR(InvoiceDate)
+    ORDER BY InvoiceYear
 
 -- how many line items were there for invoice #37
+SELECT COUNT(*) AS LineItemCount
+FROM InvoiceLine
+WHERE InvoiceId = 37
 
 -- how many invoices per country? BillingCountry  # of invoices -
+SELECT BillingCountry, COUNT(*) AS InvoiceCount
+FROM Invoice
+GROUP BY BillingCountry
+ORDER BY InvoiceCount DESC
 
 -- Retrieve the total sales per country, ordered by the highest total sales first.
-
+SELECT BillingCountry, SUM(Total) AS CountrySales
+FROM Invoice
+GROUP BY BillingCountry
+ORDER BY CountrySales DESC
 
 -- JOINS CHALLENGES
 -- Every Album by Artist
