@@ -58,12 +58,25 @@ ORDER BY CountrySales DESC
 
 -- JOINS CHALLENGES
 -- Every Album by Artist
+SELECT Artist.Name, Album.Title
+FROM Artist JOIN Album
+ON Artist.ArtistId = Album.ArtistId
 
 -- All songs of the rock genre
+SELECT Track.Name, Genre.Name
+FROM Track JOIN Genre
+ON Track.GenreId = Genre.GenreId
+WHERE Genre.Name = 'Rock'
 
 -- Show all invoices of customers from brazil (mailing address not billing)
+SELECT Invoice.*  
+FROM Invoice JOIN Customer
+ON Invoice.CustomerId = Customer.CustomerId
+WHERE Customer.Country = 'Brazil'
 
 -- Show all invoices together with the name of the sales agent for each one
+SELECT Invoice.*
+FROM Invoice
 
 -- Which sales agent made the most sales in 2009?
 
