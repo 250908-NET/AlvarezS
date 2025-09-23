@@ -484,3 +484,4 @@ $RECYCLE.BIN/
 *.swp
 
 !Todo.App/
+!EventManager.App/
