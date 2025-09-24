@@ -16,6 +16,9 @@ public class Attendee
 
     [Required, Phone]
     public string Phone { get; set; }
-    
+
     public List<Event> Events { get; set; } = new();
+    
+    public List<EventAttendee> EventAttendees { get; set; } = new();
+
 }
