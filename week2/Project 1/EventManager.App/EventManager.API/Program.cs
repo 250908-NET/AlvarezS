@@ -24,12 +24,16 @@ builder.Services.AddScoped<IEventService, EventService>();
 builder.Services.AddScoped<IAttendeeService, AttendeeService>();
 builder.Services.AddScoped<IEventAttendeeService, EventAttendeeService>();
 
+builder.Services.AddSwaggerGen();
+
 
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
+    app.UseSwagger();
+    app.UseSwaggerUI();
 }
 
 app.UseHttpsRedirection();
