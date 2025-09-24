@@ -3,22 +3,32 @@ public static class EventEndpoints
 {
     public static void mapEventEndpoints(this IEndpointRouteBuilder app)
     {
-        app.MapGet("/", () =>
+        //Register an event
+        app.MapPost("/events", () =>
         {
 
         });
 
-        app.MapPost("/", () =>
+        //Get all events (show list of  id + event names + descriptions)
+        app.MapGet("/events", () =>
         {
 
         });
 
-        app.MapPut("/", ()=>
+        //Get event by id (show all event info)
+        app.MapGet("/events/{id}", (int id) =>
+        {
+
+        });
+
+        //Update event details
+        app.MapPut("/events/{id}", (int id)=>
         {
             
         });
         
-        app.MapDelete("/", () =>
+        //Delete event by id
+        app.MapDelete("/events/{id}", (int id) =>
         {
 
         });

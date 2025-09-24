@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 public class Attendee
 {
+    [Key]
     public int Id { get; set; }
 
     [Required]
