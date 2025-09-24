@@ -11,20 +11,28 @@ namespace EventManager.Services
         {
             _repo = repo;
         }
-        
-        Task IEventAttendeeService.CreateAsync(EventAttendee eventAttendee)
+
+        public async Task DeleteAsync(int eventId, int attendeeId)
         {
-            throw new NotImplementedException();
+            await _repo.DeleteAsync(eventId, attendeeId);
+            await _repo.SaveChangesAsync();
         }
 
-        Task<List<EventAttendee>> IEventAttendeeService.GetAllAsync()
+        async Task IEventAttendeeService.CreateAsync(EventAttendee eventAttendee)
         {
-            throw new NotImplementedException();
+            await _repo.AddAsync(eventAttendee);
+            await _repo.SaveChangesAsync();
         }
 
-        Task<EventAttendee?> IEventAttendeeService.GetByIdAsync(int eventId, int attendeeId)
+        async Task<List<EventAttendee>> IEventAttendeeService.GetAllAsync()
         {
-            throw new NotImplementedException();
+            return await _repo.GetAllAsync();
+        }
+
+        async Task<EventAttendee?> IEventAttendeeService.GetByIdAsync(int eventId, int attendeeId)
+        {
+            return await _repo.GetByIdAsync(eventId, attendeeId);
+
         }
     }
 }

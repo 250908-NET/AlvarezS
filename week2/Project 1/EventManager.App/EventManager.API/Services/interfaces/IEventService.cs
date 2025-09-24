@@ -7,5 +7,7 @@ namespace EventManager.Services
         public Task<List<Event>> GetAllAsync();
         public Task<Event?> GetByIdAsync(int id);
         public Task CreateAsync(Event ev);
+        public Task UpdateAsync(Event ev);
+        public Task DeleteAsync(int id);        
     }
 }

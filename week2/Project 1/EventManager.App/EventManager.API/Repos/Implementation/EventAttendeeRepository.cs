@@ -26,11 +26,22 @@ namespace EventManager.Repos
         public async Task AddAsync(EventAttendee eventAttendee)
         {
             await _context.EventAttendees.AddAsync(eventAttendee);
+            await SaveChangesAsync();
         }
 
         public async Task SaveChangesAsync()
         {
             await _context.SaveChangesAsync();
+        }
+
+        public async Task DeleteAsync(int eventId, int attendeeId)
+        {
+            var ev = await GetByIdAsync(eventId, attendeeId);
+            if (ev != null)
+            {
+                _context.EventAttendees.Remove(ev);
+                await SaveChangesAsync();
+            }
         }
     }
 }

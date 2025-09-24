@@ -8,5 +8,7 @@ namespace EventManager.Repos
         public Task<Attendee?> GetByIdAsync(int id);
         public Task AddAsync(Attendee attendee);
         public Task SaveChangesAsync();
+        public Task UpdateAsync(Attendee attendee);
+        public Task DeleteAsync(int id);
     }
 }
