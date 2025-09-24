@@ -1,6 +1,9 @@
 using Microsoft.EntityFrameworkCore;
 using EventManager.Data;
 using EventManager.Models;
+using EventManager.Services;
+using EventManager.Repos;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,6 +15,14 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddDbContext<EventManagerDbContext>(
     options => options.UseSqlServer(CS)
 );
+
+builder.Services.AddScoped<IEventRepository, EventRepository>();
+builder.Services.AddScoped<IAttendeeRepository, AttendeeRepository>();
+builder.Services.AddScoped<IEventAttendeeRepository, EventAttendeeRepository>();
+
+builder.Services.AddScoped<IEventService, EventService>();
+builder.Services.AddScoped<IAttendeeService, AttendeeService>();
+builder.Services.AddScoped<IEventAttendeeService, EventAttendeeService>();
 
 
 var app = builder.Build();
