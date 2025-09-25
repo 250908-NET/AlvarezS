@@ -13,25 +13,11 @@ namespace EventManager.Repos
             _context = context;
         }
 
-        public async Task<List<EventAttendee>> GetAllAsync()
+        public async Task AddAsync(int eventId, int attendeeId)
         {
-           return await _context.EventAttendees.ToListAsync();
-        }
-
-        public async Task<EventAttendee?> GetByIdAsync(int eventId, int attendeeId)
-        {
-            return await  _context.EventAttendees.FirstOrDefaultAsync(EventAttendee => EventAttendee.EventId == eventId && EventAttendee.AttendeeId == attendeeId);
-        }
-
-        public async Task AddAsync(EventAttendee eventAttendee)
-        {
+            var eventAttendee = new EventAttendee(eventId, attendeeId);
             await _context.EventAttendees.AddAsync(eventAttendee);
             await SaveChangesAsync();
-        }
-
-        public async Task SaveChangesAsync()
-        {
-            await _context.SaveChangesAsync();
         }
 
         public async Task DeleteAsync(int eventId, int attendeeId)
@@ -42,6 +28,22 @@ namespace EventManager.Repos
                 _context.EventAttendees.Remove(ev);
                 await SaveChangesAsync();
             }
+        }
+        public async Task<List<EventAttendee>> GetAllAsync()
+        {
+            return await _context.EventAttendees
+                        .Include(ea => ea.Attendee)
+                        .Include(ea => ea.Event)
+                        .ToListAsync();
+        }
+
+        public async Task<EventAttendee?> GetByIdAsync(int eventId, int attendeeId)
+        {
+            return await  _context.EventAttendees.FirstOrDefaultAsync(EventAttendee => EventAttendee.EventId == eventId && EventAttendee.AttendeeId == attendeeId);
+        }
+        public async Task SaveChangesAsync()
+        {
+            await _context.SaveChangesAsync();
         }
     }
 }

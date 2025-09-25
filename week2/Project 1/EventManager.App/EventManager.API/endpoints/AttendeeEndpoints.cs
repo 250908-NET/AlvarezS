@@ -46,7 +46,7 @@ public static class AttendeeEndpoints
             if (updatedAttendee == null)
                 return Results.NotFound(new
                 {
-                    Error = $"Event Id: {id} not found"
+                    Error = $"Attendee Id: {id} not found"
                 });
 
             return Results.Ok(new

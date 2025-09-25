@@ -40,5 +40,6 @@ app.UseHttpsRedirection();
 
 app.mapAttendeeEndpoints();
 app.mapEventEndpoints();
+app.mapEventAttendeeEndpoints();
 
 app.Run();
