@@ -4,6 +4,9 @@ using System.ComponentModel.DataAnnotations;
 
 public class Event
 {
+
+
+
     [Key]
     public int Id { get; set; }
 
@@ -23,4 +26,13 @@ public class Event
     public DateTime EndDateTime { get; set; }
 
     public List<EventAttendee> EventAttendees { get; set; } = new();
+
+    public Event(string title, string description, string location, DateTime startDateTime, DateTime endDateTime)
+    {
+        Title = title;
+        Description = description;
+        Location = location;
+        StartDateTime = startDateTime;
+        EndDateTime = endDateTime;
+    }
 }

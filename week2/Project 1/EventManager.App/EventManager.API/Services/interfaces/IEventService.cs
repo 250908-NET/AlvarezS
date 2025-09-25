@@ -1,3 +1,4 @@
+using EventManager.DTOs;
 using EventManager.Models;
 
 namespace EventManager.Services
@@ -6,8 +7,8 @@ namespace EventManager.Services
     {
         public Task<List<Event>> GetAllAsync();
         public Task<Event?> GetByIdAsync(int id);
-        public Task CreateAsync(Event ev);
-        public Task UpdateAsync(Event ev);
+        public Task<Event> CreateAsync(EventCreateDto ev);
+        public Task<Event?> UpdateAsync(int id, EventUpdateDto ev);
         public Task DeleteAsync(int id);        
     }
 }

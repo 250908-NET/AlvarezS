@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using EventManager.DTOs;
 public static class EventAttendeeEndpoints
 {
     public static void mapEventAttendeeEndpoints(this IEndpointRouteBuilder app)
