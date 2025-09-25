@@ -13,10 +13,23 @@ namespace EventManager.Services
             _repo = repo;
         }
 
-        public async Task DeleteAsync(int id)
+        async Task<Event> IEventService.CreateAsync(EventCreateDto dto)
         {
-            await _repo.DeleteAsync(id);
+            var StartDate = DateTime.Parse(dto.StartDate!); // "YYYY-MM-DD"
+            var EndDate = DateTime.Parse(dto.EndDate!); // "YYYY-MM-DD"
+            var start = TimeSpan.Parse(dto.StartTime!); // "HH:mm"
+            var end = TimeSpan.Parse(dto.EndTime!);     // "HH:mm"
+
+            var ev = new Event(
+                dto.Title!,
+                dto.Description!,
+                dto.Location!,
+                StartDate.Add(start),
+                EndDate.Add(end)
+            );
+            await _repo.AddAsync(ev);
             await _repo.SaveChangesAsync();
+            return ev;            
         }
 
         public async Task<Event?> UpdateAsync(int id, EventUpdateDto dto)
@@ -55,23 +68,10 @@ namespace EventManager.Services
             return ev;
         }
 
-        async Task<Event> IEventService.CreateAsync(EventCreateDto dto)
+        public async Task DeleteAsync(int id)
         {
-            var StartDate = DateTime.Parse(dto.StartDate!); // "YYYY-MM-DD"
-            var EndDate = DateTime.Parse(dto.EndDate!); // "YYYY-MM-DD"
-            var start = TimeSpan.Parse(dto.StartTime!); // "HH:mm"
-            var end = TimeSpan.Parse(dto.EndTime!);     // "HH:mm"
-
-            var ev = new Event(
-                dto.Title!,
-                dto.Description!,
-                dto.Location!,
-                StartDate.Add(start),
-                EndDate.Add(end)
-            );
-            await _repo.AddAsync(ev);
+            await _repo.DeleteAsync(id);
             await _repo.SaveChangesAsync();
-            return ev;            
         }
 
         async Task<List<Event>> IEventService.GetAllAsync()

@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using EventManager.DTOs;
 using EventManager.Services;
-using Microsoft.AspNetCore.Http.HttpResults;
 public static class EventEndpoints
 {
     public static void mapEventEndpoints(this IEndpointRouteBuilder app)
