@@ -1,3 +1,4 @@
+using EventManager.DTOs;
 using EventManager.Models;
 using EventManager.Repos;
 
@@ -12,21 +13,28 @@ namespace EventManager.Services
             _repo = repo;
         }
 
-        public async Task DeleteAsync(int id)
+        async Task<Attendee> IAttendeeService.CreateAsync(AttendeeCreateDto dto)
         {
-            await _repo.DeleteAsync(id);
+            var attendee = new Attendee(
+                dto.FirstName!,
+                dto.LastName!,
+                dto.Email!,
+                dto.Phone!
+            );
+            await _repo.AddAsync(attendee);
             await _repo.SaveChangesAsync();
+            return attendee; 
         }
 
-        public async Task UpdateAsync(Attendee attendee)
+        public async Task<Attendee?> UpdateAsync(AttendeeUpdateDto dto)
         {
             await _repo.UpdateAsync(attendee);
             await _repo.SaveChangesAsync();
         }
 
-        async Task IAttendeeService.CreateAsync(Attendee attendee)
+        public async Task DeleteAsync(int id)
         {
-            await _repo.AddAsync(attendee);
+            await _repo.DeleteAsync(id);
             await _repo.SaveChangesAsync();
         }
 

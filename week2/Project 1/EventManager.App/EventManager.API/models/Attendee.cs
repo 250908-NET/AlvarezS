@@ -19,7 +19,14 @@ public class Attendee
     public string Phone { get; set; } = "";
 
     public List<Event> Events { get; set; } = new();
-    
+
     public List<EventAttendee> EventAttendees { get; set; } = new();
 
+    public Attendee(string firstName, string lastName, string email, string phone)
+    {
+        FirstName = firstName;
+        LastName = lastName;
+        Email = email;
+        Phone = phone;
+    }
 }

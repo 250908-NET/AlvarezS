@@ -13,24 +13,10 @@ namespace EventManager.Repos
             _context = context;
         }
 
-        public async Task<List<Attendee>> GetAllAsync()
-        {
-            return await _context.Attendees.ToListAsync();
-        }
-
-        public async Task<Attendee?> GetByIdAsync(int id)
-        {
-            return await  _context.Attendees.FindAsync(id);
-        }
-
         public async Task AddAsync(Attendee attendee)
         {
             await _context.Attendees.AddAsync(attendee);
             await SaveChangesAsync();
-        }
-        public async Task SaveChangesAsync()
-        {
-           await _context.SaveChangesAsync();
         }
 
         public async Task UpdateAsync(Attendee attendee)
@@ -47,6 +33,21 @@ namespace EventManager.Repos
                 _context.Attendees.Remove(attendee);
                 await SaveChangesAsync();
             }
+        }
+
+        public async Task<List<Attendee>> GetAllAsync()
+        {
+            return await _context.Attendees.ToListAsync();
+        }
+
+        public async Task<Attendee?> GetByIdAsync(int id)
+        {
+            return await  _context.Attendees.FindAsync(id);
+        }
+
+        public async Task SaveChangesAsync()
+        {
+            await _context.SaveChangesAsync();
         }
     }
 }

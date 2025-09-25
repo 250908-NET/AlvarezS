@@ -22,12 +22,14 @@ public class EventManagerDbContext : DbContext
         modelBuilder.Entity<EventAttendee>()
             .HasOne(ea => ea.Event)
             .WithMany(e => e.EventAttendees)
-            .HasForeignKey(ea => ea.EventId);
+            .HasForeignKey(ea => ea.EventId)
+            .OnDelete(DeleteBehavior.Cascade);
 
         modelBuilder.Entity<EventAttendee>()
             .HasOne(ea => ea.Attendee)
             .WithMany(a => a.EventAttendees)
-            .HasForeignKey(ea => ea.AttendeeId);
+            .HasForeignKey(ea => ea.AttendeeId)
+            .OnDelete(DeleteBehavior.Cascade);
 
         modelBuilder.Entity<Attendee>()
             .HasIndex(a => a.Email)
