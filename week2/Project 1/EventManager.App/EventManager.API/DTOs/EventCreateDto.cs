@@ -3,19 +3,25 @@ namespace EventManager.DTOs
 {
     public class EventCreateDto
     {
-        [Required, MaxLength(50)]
-        public string Title { get; set; } = null!;
+        [MaxLength(50)]
+        public string? Title { get; set; } = null!;
 
-        [Required, MaxLength(100)]
-        public string Description { get; set; } = null!;
+        [MaxLength(100)]
+        public string? Description { get; set; } = null!;
 
-        [Required, MaxLength(200)]
-        public string Location { get; set; } = null!;
+        [MaxLength(200)]
+        public string? Location { get; set; } = null!;
 
-        [Required]
-        public DateTime StartDateTime { get; set; }
+        [DataType(DataType.Date)]
+        public string? StartDate { get; set; } = null!;
 
-        [Required]
-        public DateTime EndDateTime { get; set; }
+        [DataType(DataType.Date)]
+        public string? EndDate { get; set; } = null!;
+
+        [DataType(DataType.Time)]
+        public string? StartTime { get; set; } = null!;
+
+        [DataType(DataType.Time)]
+        public string? EndTime { get; set; } = null!;
     }    
 }

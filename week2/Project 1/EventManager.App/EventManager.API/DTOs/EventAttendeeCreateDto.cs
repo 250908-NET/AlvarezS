@@ -3,9 +3,9 @@ namespace EventManager.DTOs
 {
     public class EventAttendeeCreateDto
     {
-        public int EventId { get; set; }
-        public string EventTitle { get; set; } = null!;
-        public int AttendeeId { get; set; }
-        public string AttendeeFullName { get; set; } = null!;
+        public int? EventId { get; set; } = null!;
+        public string? EventTitle { get; set; } = null!;
+        public int? AttendeeId { get; set; } = null!;
+        public string? AttendeeFullName { get; set; } = null!;
     }    
 }
