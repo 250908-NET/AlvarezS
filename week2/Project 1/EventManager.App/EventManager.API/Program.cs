@@ -38,6 +38,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.mapAttendeeEndpoints();
 app.mapEventEndpoints();
 
 app.Run();

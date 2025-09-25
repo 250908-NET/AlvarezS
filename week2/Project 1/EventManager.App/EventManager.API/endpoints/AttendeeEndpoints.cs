@@ -41,6 +41,19 @@ public static class AttendeeEndpoints
         //Update attendee details
         app.MapPut("/attendees/{id}", async (int id, AttendeeUpdateDto dto, IAttendeeService service) =>
         {
+            var updatedAttendee = await service.UpdateAsync(id, dto);
+
+            if (updatedAttendee == null)
+                return Results.NotFound(new
+                {
+                    Error = $"Event Id: {id} not found"
+                });
+
+            return Results.Ok(new
+            {
+                Success = true,
+                Data = updatedAttendee
+            });            
         });
 
         //Delete attendee by id
@@ -62,11 +75,12 @@ public static class AttendeeEndpoints
             });
         });
         
+        //OPTIONAL
         //Get all attendees (show list of  id + attendee names)
-        app.MapGet("/attendees", async (IAttendeeService service) =>
-        {
+        // app.MapGet("/attendees", async (IAttendeeService service) =>
+        // {
 
-        });
+        // });
 
         //Get attendee by id (show all attendee info)
         app.MapGet("/attendees/{id}", async (int id, IAttendeeService service) =>

@@ -26,10 +26,27 @@ namespace EventManager.Services
             return attendee; 
         }
 
-        public async Task<Attendee?> UpdateAsync(AttendeeUpdateDto dto)
+        public async Task<Attendee?> UpdateAsync(int id, AttendeeUpdateDto dto)
         {
+            var attendee = await _repo.GetByIdAsync(id);
+            if (attendee == null) return null;
+
+            // Only update if provided
+            if (!string.IsNullOrWhiteSpace(dto.FirstName))
+                attendee.FirstName = dto.FirstName;
+
+            if (!string.IsNullOrWhiteSpace(dto.LastName))
+                attendee.LastName = dto.LastName;
+
+            if (!string.IsNullOrWhiteSpace(dto.Phone))
+                attendee.Phone = dto.Phone;
+
+            if (!string.IsNullOrWhiteSpace(dto.Email))
+                attendee.Email = dto.Email;
+
             await _repo.UpdateAsync(attendee);
             await _repo.SaveChangesAsync();
+            return attendee;
         }
 
         public async Task DeleteAsync(int id)
