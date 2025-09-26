@@ -24,6 +24,7 @@ public static class AttendeeEndpoints
             {
                 return Results.BadRequest(new
                 {
+                    Success = false,
                     Error = "Missing required fields",
                     MissingFields = missingFields
                 });
@@ -46,6 +47,7 @@ public static class AttendeeEndpoints
             if (updatedAttendee == null)
                 return Results.NotFound(new
                 {
+                    Success = false,
                     Error = $"Attendee Id: {id} not found"
                 });
 
@@ -64,6 +66,7 @@ public static class AttendeeEndpoints
             if (attendee == null)
                 return Results.NotFound(new
                 {
+                    Success = false,
                     Error = $"Attendee Id: {id} not found"
                 });
 
@@ -75,12 +78,26 @@ public static class AttendeeEndpoints
             });
         });
         
-        //OPTIONAL
-        //Get all attendees (show list of  id + attendee names)
-        // app.MapGet("/attendees", async (IAttendeeService service) =>
-        // {
+        // OPTIONAL
+        // Get all attendees (show list of  id + attendee names)
+        app.MapGet("/attendees", async (IAttendeeService service) =>
+        {
 
-        // });
+            var attendees = await service.GetAllAsync();
+            
+            var result = attendees.Select(a => new
+            {
+                a.Id,
+                a.FirstName,
+                a.LastName
+            });
+
+            return Results.Ok(new
+            {
+                Success = true,
+                Data = result
+            });
+        });
 
         //Get attendee by id (show all attendee info)
         app.MapGet("/attendees/{id}", async (int id, IAttendeeService service) =>
@@ -90,6 +107,7 @@ public static class AttendeeEndpoints
             if (attendee == null)
                 return Results.NotFound( new
                 {
+                    Success = false,
                     Error = $"Attendee Id: {id} not found"
                 });
             

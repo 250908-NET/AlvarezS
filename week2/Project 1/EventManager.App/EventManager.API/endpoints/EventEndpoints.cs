@@ -29,6 +29,7 @@ public static class EventEndpoints
             {
                 return Results.BadRequest(new
                 {
+                    Success = false,
                     Error = "Missing required fields",
                     MissingFields = missingFields
                 });
@@ -58,6 +59,7 @@ public static class EventEndpoints
             if (updatedEvent == null)
                 return Results.NotFound(new
                 {
+                    Success = false,
                     Error = $"Event Id: {id} not found"
                 });
 
@@ -76,6 +78,7 @@ public static class EventEndpoints
             if (ev == null)
                 return Results.NotFound(new
                 {
+                    Success = false,
                     Error = $"Event Id: {id} not found"
                 });
 
@@ -114,6 +117,7 @@ public static class EventEndpoints
             if (ev == null)
                 return Results.NotFound( new
                 {
+                    Success = false,
                     Error = $"Event Id: {id} not found"
                 });
             

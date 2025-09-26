@@ -43,3 +43,5 @@ app.mapEventEndpoints();
 app.mapEventAttendeeEndpoints();
 
 app.Run();
+
+public partial class Program { }
