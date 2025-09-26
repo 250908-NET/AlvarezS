@@ -39,7 +39,10 @@ namespace EventManager.Repos
 
         public async Task<EventAttendee?> GetByIdAsync(int eventId, int attendeeId)
         {
-            return await  _context.EventAttendees.FirstOrDefaultAsync(EventAttendee => EventAttendee.EventId == eventId && EventAttendee.AttendeeId == attendeeId);
+            return await _context.EventAttendees
+                    .Include(ea => ea.Attendee)
+                    .Include(ea => ea.Event)
+                    .FirstOrDefaultAsync(ea => ea.EventId == eventId && ea.AttendeeId == attendeeId);
         }
         public async Task SaveChangesAsync()
         {

@@ -65,10 +65,19 @@ public static class EventAttendeeEndpoints
     }
             var attendees = await service.GetAttendeesByEventIdAsync(eventId);
 
+            var result = attendees.Select(a => new
+            {
+                a.Id,
+                a.FirstName,
+                a.LastName,
+                a.Phone,
+                a.Email
+            });
+
             return Results.Ok(new
             {
                 Success = true,
-                Data = attendees
+                Data = result
             });
         });
 
@@ -86,10 +95,17 @@ public static class EventAttendeeEndpoints
             }
             var events = await service.GetEventsByAttendeeIdAsync(attendeeId);
 
+            var result = events.Select(e => new 
+            {
+                e.Id,
+                e.Title,
+                e.Description
+            });
+
             return Results.Ok(new
             {
                 Success = true,
-                Data = events
+                Data = result
             });
         });
         
@@ -104,11 +120,19 @@ public static class EventAttendeeEndpoints
                     Error = $"Event Id: {eventId} Attendee Id: {attendeeId} not found"
                 });
 
+            var responseData = new
+            {
+                AttendeeId = evAttendee.AttendeeId,
+                FullName = $"{evAttendee.Attendee.FirstName} {evAttendee.Attendee.LastName}",
+                EventTitle = evAttendee.Event.Title
+            };
+
             await service.DeleteAsync(eventId, attendeeId);
             return Results.Ok(new
             {
                 Success = true,
-                Data = evAttendee
+                Message = "Attendee removed from event successfully.",
+                Data = responseData
             });
         });
     }
