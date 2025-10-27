@@ -7,13 +7,16 @@ using EventManager.Repos;
 
 var builder = WebApplication.CreateBuilder(args);
 
-string CS = File.ReadAllText("./connection_string.env");
+// string CS = File.ReadAllText("./connection_string.env");
+var connectionString = Environment.GetEnvironmentVariable("CONNECTION_STRING")
+    ?? throw new InvalidOperationException("CONNECTION_STRING not set.");
 
+builder.Configuration.AddEnvironmentVariables();
 
 builder.Services.AddOpenApi();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddDbContext<EventManagerDbContext>(
-    options => options.UseSqlServer(CS)
+    options => options.UseSqlServer(connectionString)
 );
 
 builder.Services.AddScoped<IEventRepository, EventRepository>();
