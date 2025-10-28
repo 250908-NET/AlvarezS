@@ -39,6 +39,6 @@ jobs:
           context: .
           file: "./week2/Project 1/EventManager.App/EventManager.API/Dockerfile"
           push: true
-          tags: |
-            ${{ secrets.AZURE_REGISTRY_LOGIN_SERVER }}/eventmanager-api:latest
-            ${{ secrets.AZURE_REGISTRY_LOGIN_SERVER }}/eventmanager-api:${{ github.sha }}
+          tags: ${{ secrets.ACR_LOGIN_SERVER }}/eventmanager-api:latest
+          build-args: |
+            CONNECTION_STRING=${{ secrets.CONNECTION_STRING }}
