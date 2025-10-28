@@ -36,7 +36,7 @@ jobs:
       - name: build and push docker image
         uses: docker/build-push-action@v6
         with: 
-          context: .
+          context: "./week2/Project 1/EventManager.App/EventManager.API"
           file: "./week2/Project 1/EventManager.App/EventManager.API/Dockerfile"
           push: true
           tags: ${{ secrets.ACR_LOGIN_SERVER }}/eventmanager-api:latest
